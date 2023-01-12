@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: True
+      MYSQL_DATABASE: flask_app
+    ports:
+      - "3307:3306"
+    networks:
+      - flask_app
+    volumes:
+      - ./mysql/schema.sql:/docker-entrypoint-initdb.d/init.sql
+  flask:
+    depends_on: 
+      - db
+    build: ./flask/
+    ports:
+      - "5000:5000"
+    restart: always
+    volumes:
+      - "C:\\Users\\Samuel Basilio\\OneDrive - AlloyMit\\Área de Trabalho\\estudos\\flask_app:/app"
+    networks: 
+      - flask_app
+networks:
+  flask_app:
