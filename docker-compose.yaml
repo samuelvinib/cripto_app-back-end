@@ -21,7 +21,7 @@ services:
       - "5000:5000"
     restart: always
     volumes:
-      - "C:\\Users\\Samuel Basilio\\OneDrive - AlloyMit\\Área de Trabalho\\estudos\\flask_app:/app"
+      - "./:/app"
     networks: 
       - flask_app
 networks:
