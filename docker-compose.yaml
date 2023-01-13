@@ -12,17 +12,24 @@ services:
     networks:
       - flask_app
     volumes:
-      - ./mysql/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql:/docker-entrypoint-initdb.d
   flask:
-    depends_on: 
+    depends_on:
       - db
-    build: ./flask/
+    build: ./Docker
+    entrypoint:
+      - flask
+      - run
+      - --host=0.0.0.0
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: ./app.py
     ports:
       - "5000:5000"
     restart: always
     volumes:
       - "./:/app"
-    networks: 
+    networks:
       - flask_app
 networks:
   flask_app:
